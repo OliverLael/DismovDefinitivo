@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_cream">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_section_header"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingTop="44dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="20dp">
+
+        <!-- Back + Title row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/btn_back"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_nav_back"
+                android:padding="6dp"
+                android:background="@drawable/bg_chip_normal"
+                android:contentDescription="Atrás" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/title_lugares_interes"
+                android:textColor="@color/text_on_dark"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginStart="12dp" />
+
+            <!-- Range badge -->
+            <TextView
+                android:id="@+id/tv_range_badge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10km"
+                android:textColor="@color/chip_selected_text"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:background="@drawable/bg_chip_selected" />
+
+        </LinearLayout>
+
+        <!-- Category filter chips -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/chip_todos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/filter_todos"
+                    android:textColor="@color/chip_selected_text"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:background="@drawable/bg_chip_selected" />
+
+                <TextView
+                    android:id="@+id/chip_restaurante"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/filter_restaurante"
+                    android:textColor="@color/chip_normal_text"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_chip_normal" />
+
+                <TextView
+                    android:id="@+id/chip_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/filter_bar"
+                    android:textColor="@color/chip_normal_text"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_chip_normal" />
+
+                <TextView
+                    android:id="@+id/chip_compras"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/filter_compras"
+                    android:textColor="@color/chip_normal_text"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_chip_normal" />
+
+                <TextView
+                    android:id="@+id/chip_educacion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/filter_educacion"
+                    android:textColor="@color/chip_normal_text"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_chip_normal" />
+
+                <TextView
+                    android:id="@+id/chip_hotel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/filter_hotel"
+                    android:textColor="@color/chip_normal_text"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_chip_normal" />
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+    </LinearLayout>
+
+    <!-- Empty state -->
+    <TextView
+        android:id="@+id/tv_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/msg_sin_rango"
+        android:textColor="@color/text_light"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:padding="32dp"
+        android:visibility="gone" />
+
+    <!-- List -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:clipToPadding="false" />
+
+</LinearLayout>
