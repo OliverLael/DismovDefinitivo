@@ -10,10 +10,11 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
-import com.bumptech.glide.Glide
+import android.location.Geocoder
 import com.example.mislugares.databinding.ActivityMainBinding
 import org.json.JSONObject
 import java.net.URL
+import java.util.Locale
 import javax.net.ssl.HttpsURLConnection
 
 class MainActivity : AppCompatActivity() {
@@ -46,8 +47,6 @@ class MainActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_RANGE_KM = "range_km"
         var debeRefrescarLista = false
-        // Obtén tu clave gratuita en https://openweathermap.org/api
-        private const val WEATHER_API_KEY = "TU_API_KEY_AQUI"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -149,28 +148,35 @@ class MainActivity : AppCompatActivity() {
     private fun fetchWeather(lat: Double, lon: Double) {
         Thread {
             try {
-                val urlStr = "https://api.openweathermap.org/data/2.5/weather" +
-                        "?lat=$lat&lon=$lon&appid=$WEATHER_API_KEY&units=metric&lang=es"
+                // Nombre de ciudad usando Geocoder integrado de Android (sin API key)
+                @Suppress("DEPRECATION")
+                val cityName = try {
+                    Geocoder(this, Locale.getDefault())
+                        .getFromLocation(lat, lon, 1)
+                        ?.firstOrNull()
+                        ?.let { it.locality ?: it.subAdminArea }
+                        ?: ""
+                } catch (e: Exception) { "" }
+
+                // Clima desde Open-Meteo: gratuito, sin registro, sin API key
+                val urlStr = "https://api.open-meteo.com/v1/forecast" +
+                        "?latitude=$lat&longitude=$lon" +
+                        "&current=temperature_2m,weather_code"
                 val connection = URL(urlStr).openConnection() as HttpsURLConnection
                 connection.connectTimeout = 6000
                 connection.readTimeout = 6000
 
                 if (connection.responseCode == 200) {
                     val response = connection.inputStream.bufferedReader().readText()
-                    val json = JSONObject(response)
-                    val temp = json.getJSONObject("main").getDouble("temp").toInt()
-                    val city = json.getString("name")
-                    val iconCode = json.getJSONArray("weather")
-                        .getJSONObject(0).getString("icon")
-                    val iconUrl = "https://openweathermap.org/img/wn/$iconCode@2x.png"
+                    val current = JSONObject(response).getJSONObject("current")
+                    val temp = current.getDouble("temperature_2m").toInt()
+                    val description = weatherCodeToDescription(current.getInt("weather_code"))
 
                     handler.post {
                         binding.weatherTemp.text = "$temp°C"
-                        binding.weatherCity.text = city
-                        Glide.with(this@MainActivity)
-                            .load(iconUrl)
-                            .placeholder(R.drawable.ic_weather_default)
-                            .into(binding.weatherIcon)
+                        binding.weatherCity.text =
+                            if (cityName.isNotEmpty()) "$cityName · $description" else description
+                        binding.weatherIcon.setImageResource(R.drawable.ic_weather_default)
                     }
                 }
                 connection.disconnect()
@@ -180,6 +186,22 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }.start()
+    }
+
+    private fun weatherCodeToDescription(code: Int): String = when (code) {
+        0          -> "Despejado"
+        1          -> "Mayormente despejado"
+        2          -> "Parcialmente nublado"
+        3          -> "Nublado"
+        45, 48     -> "Niebla"
+        51, 53, 55 -> "Llovizna"
+        61, 63, 65 -> "Lluvia"
+        71, 73, 75, 77 -> "Nieve"
+        80, 81, 82 -> "Chubascos"
+        85, 86     -> "Chubascos de nieve"
+        95         -> "Tormenta"
+        96, 99     -> "Tormenta con granizo"
+        else       -> "Variable"
     }
 
     // ── Music ─────────────────────────────────────
