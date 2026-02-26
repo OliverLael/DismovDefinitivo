@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_RANGE_KM = "range_km"
+        var debeRefrescarLista = false
         // Obtén tu clave gratuita en https://openweathermap.org/api
         private const val WEATHER_API_KEY = "TU_API_KEY_AQUI"
     }
