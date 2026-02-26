@@ -61,6 +61,13 @@ class LugaresInteresActivity : AppCompatActivity() {
         }
 
         binding.btnBack.setOnClickListener { finish() }
+
+        // Mostrar mensaje de carga mientras se obtienen datos
+        binding.tvEmpty.text = getString(R.string.loading_places)
+        binding.tvEmpty.visibility = View.VISIBLE
+        binding.tvEmptyOsm.text = getString(R.string.loading_osm)
+        binding.tvEmptyOsm.visibility = View.VISIBLE
+
         setupCategoryChips()
     }
 
@@ -114,11 +121,26 @@ class LugaresInteresActivity : AppCompatActivity() {
         }
 
         adaptador.actualizarLugares(filtered)
-        binding.tvEmpty.visibility = if (filtered.isEmpty()) View.VISIBLE else View.GONE
+
+        // Mostrar mensaje vacío solo si no hay lugares locales
+        if (filtered.isEmpty() && todasLasListas.isNotEmpty()) {
+            binding.tvEmpty.text = getString(R.string.no_places_in_range)
+            binding.tvEmpty.visibility = View.VISIBLE
+        } else if (filtered.isEmpty()) {
+            binding.tvEmpty.text = getString(R.string.loading_local_places)
+            binding.tvEmpty.visibility = View.VISIBLE
+        } else {
+            binding.tvEmpty.visibility = View.GONE
+        }
 
         // Fetch OSM nearby places matching the current filter
         if (posActual != GeoPunto.SIN_POSICION) {
             fetchOsmPlaces(posActual.latitud, posActual.longitud)
+        } else {
+            binding.tvEmptyOsm.text = getString(R.string.permission_location)
+            binding.tvEmptyOsm.visibility = View.VISIBLE
+            binding.progressOsm.visibility = View.GONE
+            adaptadorOsm.actualizar(emptyList())
         }
     }
 
@@ -151,15 +173,20 @@ class LugaresInteresActivity : AppCompatActivity() {
                     val lugares = mutableListOf<LugarOSM>()
 
                     for (i in 0 until elements.length()) {
-                        val el = elements.getJSONObject(i)
-                        if (!el.has("tags") || !el.has("lat")) continue
-                        val tags = el.getJSONObject("tags")
-                        val nombre = tags.optString("name").takeIf { it.isNotEmpty() } ?: continue
-                        val elLat = el.getDouble("lat")
-                        val elLon = el.getDouble("lon")
-                        val distancia = posActual.distancia(GeoPunto(elLon, elLat))
-                        val (categoria, icono) = categorizarOSM(tags)
-                        lugares.add(LugarOSM(nombre, categoria, icono, elLat, elLon, distancia))
+                        try {
+                            val el = elements.getJSONObject(i)
+                            if (!el.has("tags") || !el.has("lat")) continue
+                            val tags = el.getJSONObject("tags")
+                            val nombre = tags.optString("name").takeIf { it.isNotEmpty() } ?: continue
+                            val elLat = el.getDouble("lat")
+                            val elLon = el.getDouble("lon")
+                            val distancia = posActual.distancia(GeoPunto(elLon, elLat))
+                            val (categoria, icono) = categorizarOSM(tags)
+                            lugares.add(LugarOSM(nombre, categoria, icono, elLat, elLon, distancia))
+                        } catch (e: Exception) {
+                            // Ignorar lugares con datos inválidos
+                            continue
+                        }
                     }
 
                     lugares.sortBy { it.distanciaM }
@@ -168,6 +195,9 @@ class LugaresInteresActivity : AppCompatActivity() {
                     runOnUiThread {
                         binding.progressOsm.visibility = View.GONE
                         adaptadorOsm.actualizar(lugares)
+                        if (lugares.isEmpty()) {
+                            binding.tvEmptyOsm.text = getString(R.string.osm_sin_resultados)
+                        }
                         binding.tvEmptyOsm.visibility =
                             if (lugares.isEmpty()) View.VISIBLE else View.GONE
                     }
@@ -175,8 +205,9 @@ class LugaresInteresActivity : AppCompatActivity() {
                     connection.disconnect()
                     runOnUiThread { showOsmError() }
                 }
-            } catch (e: Exception) {
+            } catch (@Suppress("UNUSED_VARIABLE") e: Exception) {
                 if (!Thread.currentThread().isInterrupted) {
+                    android.util.Log.e("LugaresInteres", "Error fetching OSM: ${e.message}", e)
                     runOnUiThread { showOsmError() }
                 }
             }
@@ -246,6 +277,9 @@ class LugaresInteresActivity : AppCompatActivity() {
             todasLasListas = lista
             applyFilter()
         }
+        // Inicialmente también intentar con los datos que ya tenemos en caché
+        todasLasListas = repositorio.obtenerTodosSincrono()
+        applyFilter()
     }
 
     override fun onPause() {
