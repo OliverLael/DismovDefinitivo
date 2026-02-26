@@ -65,6 +65,7 @@ class MainActivity : AppCompatActivity() {
         setupRangeChips()
         setupCardNavigation()
         casosUsoLocalizacion.ultimaLocalizacion()
+        casosUsoLocalizacion.onLocationUpdate = { tryLoadWeather() }
     }
 
     // ── Range chips ───────────────────────────────

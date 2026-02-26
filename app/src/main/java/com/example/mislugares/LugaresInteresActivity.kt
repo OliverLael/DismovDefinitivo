@@ -1,9 +1,17 @@
 package com.example.mislugares
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mislugares.databinding.ActivityLugaresInteresBinding
 import org.json.JSONObject
@@ -25,6 +33,18 @@ class LugaresInteresActivity : AppCompatActivity() {
     private var todasLasListas: List<Lugar> = emptyList()
     private var selectedFilter: TipoLugar? = null
     private var osmThread: Thread? = null
+    private var locationManager: LocationManager? = null
+
+    private val osmLocationListener = object : LocationListener {
+        override fun onLocationChanged(location: Location) {
+            val app = application as AplicacionMisLugares
+            if (app.posicionActual == GeoPunto.SIN_POSICION) {
+                app.posicionActual = GeoPunto(location.longitude, location.latitude)
+            }
+            locationManager?.removeUpdates(this)
+            applyFilter()
+        }
+    }
 
     // Types considered "places of interest" (urban/commercial)
     private val tiposInteres = setOf(
@@ -141,6 +161,41 @@ class LugaresInteresActivity : AppCompatActivity() {
             binding.tvEmptyOsm.visibility = View.VISIBLE
             binding.progressOsm.visibility = View.GONE
             adaptadorOsm.actualizar(emptyList())
+        }
+    }
+
+    // ── Location helpers ──────────────────────────────────────────────────────
+
+    @SuppressLint("MissingPermission")
+    private fun ensureLocation() {
+        val app = application as AplicacionMisLugares
+        if (app.posicionActual != GeoPunto.SIN_POSICION) return
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED) return
+
+        val lm = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        locationManager = lm
+
+        // Try last known location from any available provider
+        val providers = listOf(LocationManager.NETWORK_PROVIDER, LocationManager.GPS_PROVIDER)
+        for (provider in providers) {
+            if (lm.isProviderEnabled(provider)) {
+                lm.getLastKnownLocation(provider)?.let { location ->
+                    app.posicionActual = GeoPunto(location.longitude, location.latitude)
+                    applyFilter()
+                    return
+                }
+            }
+        }
+
+        // No cached location – request real-time update
+        binding.tvEmptyOsm.text = getString(R.string.getting_location)
+        binding.tvEmptyOsm.visibility = View.VISIBLE
+        binding.progressOsm.visibility = View.VISIBLE
+        for (provider in providers) {
+            if (lm.isProviderEnabled(provider)) {
+                lm.requestLocationUpdates(provider, 0, 0f, osmLocationListener)
+            }
         }
     }
 
@@ -280,11 +335,14 @@ class LugaresInteresActivity : AppCompatActivity() {
         // Inicialmente también intentar con los datos que ya tenemos en caché
         todasLasListas = repositorio.obtenerTodosSincrono()
         applyFilter()
+        ensureLocation()
     }
 
     override fun onPause() {
         super.onPause()
         repositorio.detenerEscuchador()
         osmThread?.interrupt()
+        locationManager?.removeUpdates(osmLocationListener)
+        locationManager = null
     }
 }

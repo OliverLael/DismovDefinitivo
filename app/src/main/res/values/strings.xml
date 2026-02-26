@@ -65,6 +65,7 @@
     <string name="no_places_in_range">No hay lugares de interés en el rango seleccionado</string>
     <string name="loading_local_places">Cargando lugares locales...</string>
     <string name="permission_location">Debes permitir el acceso a tu ubicación</string>
+    <string name="getting_location">Obteniendo ubicación…</string>
 
     <!-- Dificultades array -->
     <string-array name="dificultades">

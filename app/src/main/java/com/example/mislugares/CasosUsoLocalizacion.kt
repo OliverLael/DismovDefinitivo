@@ -93,11 +93,14 @@ class CasosUsoLocalizacion(
         activarProveedores()
     }
 
+    var onLocationUpdate: (() -> Unit)? = null
+
     private fun actualizaMejorLocaliz(location: Location?) {
         location ?: return
         if (mejorLocaliz == null || location.accuracy < 2 * (mejorLocaliz?.accuracy ?: 0f) || location.time - (mejorLocaliz?.time ?: 0) > 2 * 60 * 1000) {
             mejorLocaliz = location
             aplicacion.posicionActual = GeoPunto(location.longitude, location.latitude)
+            onLocationUpdate?.invoke()
         }
     }
 }
