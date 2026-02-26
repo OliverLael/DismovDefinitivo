@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Trail Explorer</string>
+    <string name="app_name">Mis Lugares</string>
     <string name="title_activity_vista_lugar">Detalles del Lugar</string>
 
     <!-- Dashboard -->
-    <string name="dashboard_title">Trail Explorer</string>
+    <string name="dashboard_title">Mis Lugares</string>
     <string name="dashboard_subtitle">¿A dónde vas hoy?</string>
     <string name="section_explorar">Explorar</string>
 
