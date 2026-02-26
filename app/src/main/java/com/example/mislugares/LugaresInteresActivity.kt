@@ -214,9 +214,10 @@ class LugaresInteresActivity : AppCompatActivity() {
                 val connection = URL("https://overpass-api.de/api/interpreter")
                     .openConnection() as HttpsURLConnection
                 connection.requestMethod = "POST"
-                connection.connectTimeout = 15000
-                connection.readTimeout = 15000
+                connection.connectTimeout = 20000
+                connection.readTimeout = 30000
                 connection.doOutput = true
+                connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
                 connection.outputStream.use { out ->
                     out.write("data=${URLEncoder.encode(query, "UTF-8")}".toByteArray())
                 }
