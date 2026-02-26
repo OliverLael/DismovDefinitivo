@@ -1,11 +1,62 @@
 <resources>
-    <string name="app_name">Mis Lugares</string>
+    <string name="app_name">Trail Explorer</string>
     <string name="title_activity_vista_lugar">Detalles del Lugar</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_title">Trail Explorer</string>
+    <string name="dashboard_subtitle">¿A dónde vas hoy?</string>
+    <string name="section_explorar">Explorar</string>
+
+    <!-- Range chips -->
+    <string name="range_5km">5km</string>
+    <string name="range_10km">10km</string>
+    <string name="range_25km">25km</string>
+    <string name="range_50km">50km</string>
+
+    <!-- Weather -->
+    <string name="weather_loading">Cargando…</string>
+    <string name="weather_error">Sin datos</string>
+
+    <!-- Cards -->
+    <string name="card_interes_title">Lugares de\nInterés</string>
+    <string name="card_interes_sub">Cerca de ti</string>
+    <string name="card_lugares_title">Mis\nLugares</string>
+    <string name="card_lugares_sub">Por visitar</string>
+    <string name="card_nivel_title">Nivel de\nDificultad</string>
+    <string name="card_nivel_sub">Elige tu reto</string>
+    <string name="card_senderismo_title">Senderismo\ny Camping</string>
+    <string name="card_senderismo_sub">Explora la naturaleza</string>
+
+    <!-- Difficulty -->
+    <string name="dif_principiante">Principiante</string>
+    <string name="dif_intermedio">Intermedio</string>
+    <string name="dif_avanzado">Avanzado</string>
+
+    <!-- Activities -->
+    <string name="title_lugares_interes">Lugares de Interés</string>
+    <string name="title_mis_lugares">Mis Lugares</string>
+    <string name="title_nivel">Nivel de Dificultad</string>
+    <string name="title_senderismo">Senderismo y Camping</string>
+
+    <!-- Filter -->
+    <string name="filter_todos">Todos</string>
+    <string name="filter_senderismo">Senderismo</string>
+    <string name="filter_camping">Camping</string>
+    <string name="filter_restaurante">Restaurantes</string>
+    <string name="filter_bar">Bares</string>
+    <string name="filter_compras">Compras</string>
+    <string name="filter_educacion">Educación</string>
+    <string name="filter_hotel">Hoteles</string>
+
+    <!-- Messages -->
+    <string name="msg_sin_lugares">No hay lugares disponibles</string>
+    <string name="msg_sin_rango">No hay lugares en este rango</string>
+    <string name="msg_selecciona_nivel">Selecciona un nivel de dificultad</string>
+
+    <!-- Dificultades array -->
     <string-array name="dificultades">
         <item>Principiante</item>
         <item>Intermedio</item>
         <item>Avanzado</item>
     </string-array>
-
-
 </resources>

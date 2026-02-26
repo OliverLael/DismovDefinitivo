@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
 
     <queries>
@@ -94,6 +95,28 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+
+        <!-- Nuevas actividades del rediseño -->
+        <activity
+            android:name=".LugaresPorVisitarActivity"
+            android:exported="false"
+            android:label="@string/title_mis_lugares"
+            android:theme="@style/Theme.MisLugares.NoActionBar" />
+        <activity
+            android:name=".LugaresInteresActivity"
+            android:exported="false"
+            android:label="@string/title_lugares_interes"
+            android:theme="@style/Theme.MisLugares.NoActionBar" />
+        <activity
+            android:name=".NivelDificultadActivity"
+            android:exported="false"
+            android:label="@string/title_nivel"
+            android:theme="@style/Theme.MisLugares.NoActionBar" />
+        <activity
+            android:name=".SenderismoCampingActivity"
+            android:exported="false"
+            android:label="@string/title_senderismo"
+            android:theme="@style/Theme.MisLugares.NoActionBar" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
