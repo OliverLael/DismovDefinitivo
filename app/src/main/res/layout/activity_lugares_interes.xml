@@ -167,26 +167,115 @@
 
     </LinearLayout>
 
-    <!-- Empty state -->
-    <TextView
-        android:id="@+id/tv_empty"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/msg_sin_rango"
-        android:textColor="@color/text_light"
-        android:textSize="14sp"
-        android:gravity="center"
-        android:padding="32dp"
-        android:visibility="gone" />
-
-    <!-- List -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <!-- Scrollable content with two sections -->
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:clipToPadding="false" />
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="24dp">
+
+            <!-- ── Sección: Guardados ── -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/section_guardados"
+                android:textColor="@color/text_medium"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="6dp"
+                android:letterSpacing="0.08" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
+
+            <TextView
+                android:id="@+id/tv_empty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/msg_sin_rango"
+                android:textColor="@color/text_light"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:visibility="gone" />
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/forest_pale"
+                android:alpha="0.5" />
+
+            <!-- ── Sección: Cerca de ti (OpenStreetMap) ── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="6dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/section_cerca_de_ti"
+                    android:textColor="@color/text_medium"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:letterSpacing="0.08" />
+
+                <ProgressBar
+                    android:id="@+id/progress_osm"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_osm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
+
+            <TextView
+                android:id="@+id/tv_empty_osm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/osm_sin_resultados"
+                android:textColor="@color/text_light"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

@@ -65,6 +65,7 @@ class MainActivity : AppCompatActivity() {
         setupRangeChips()
         setupCardNavigation()
         casosUsoLocalizacion.ultimaLocalizacion()
+        casosUsoLocalizacion.onLocationUpdate = { tryLoadWeather() }
     }
 
     // ── Range chips ───────────────────────────────
@@ -140,7 +141,6 @@ class MainActivity : AppCompatActivity() {
         if (weatherLoaded) return
         val pos = (application as AplicacionMisLugares).posicionActual
         if (pos != GeoPunto.SIN_POSICION) {
-            weatherLoaded = true
             fetchWeather(pos.latitud, pos.longitud)
         }
     }
@@ -163,8 +163,8 @@ class MainActivity : AppCompatActivity() {
                         "?latitude=$lat&longitude=$lon" +
                         "&current=temperature_2m,weather_code"
                 val connection = URL(urlStr).openConnection() as HttpsURLConnection
-                connection.connectTimeout = 6000
-                connection.readTimeout = 6000
+                connection.connectTimeout = 15000
+                connection.readTimeout = 15000
 
                 if (connection.responseCode == 200) {
                     val response = connection.inputStream.bufferedReader().readText()
@@ -172,15 +172,21 @@ class MainActivity : AppCompatActivity() {
                     val temp = current.getDouble("temperature_2m").toInt()
                     val description = weatherCodeToDescription(current.getInt("weather_code"))
 
+                    weatherLoaded = true   // Marcar como cargado solo si fue exitoso
                     handler.post {
                         binding.weatherTemp.text = "$temp°C"
                         binding.weatherCity.text =
                             if (cityName.isNotEmpty()) "$cityName · $description" else description
                         binding.weatherIcon.setImageResource(R.drawable.ic_weather_default)
                     }
+                } else {
+                    handler.post {
+                        binding.weatherCity.text = getString(R.string.weather_error)
+                    }
                 }
                 connection.disconnect()
             } catch (e: Exception) {
+                android.util.Log.e("MainActivity", "Weather fetch failed: ${e.message}", e)
                 handler.post {
                     binding.weatherCity.text = getString(R.string.weather_error)
                 }

@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Trail Explorer</string>
+    <string name="app_name">Mis Lugares</string>
     <string name="title_activity_vista_lugar">Detalles del Lugar</string>
 
     <!-- Dashboard -->
-    <string name="dashboard_title">Trail Explorer</string>
+    <string name="dashboard_title">Mis Lugares</string>
     <string name="dashboard_subtitle">¿A dónde vas hoy?</string>
     <string name="section_explorar">Explorar</string>
 
@@ -52,6 +52,20 @@
     <string name="msg_sin_lugares">No hay lugares disponibles</string>
     <string name="msg_sin_rango">No hay lugares en este rango</string>
     <string name="msg_selecciona_nivel">Selecciona un nivel de dificultad</string>
+
+    <!-- Section headers -->
+    <string name="section_guardados">Guardados</string>
+    <string name="section_cerca_de_ti">Cerca de ti · OpenStreetMap</string>
+
+    <!-- OSM messages -->
+    <string name="osm_sin_resultados">No se encontraron lugares cercanos</string>
+    <string name="osm_error">Error al cargar lugares cercanos</string>
+    <string name="loading_places">Cargando lugares...</string>
+    <string name="loading_osm">Buscando lugares cercanos...</string>
+    <string name="no_places_in_range">No hay lugares de interés en el rango seleccionado</string>
+    <string name="loading_local_places">Cargando lugares locales...</string>
+    <string name="permission_location">Debes permitir el acceso a tu ubicación</string>
+    <string name="getting_location">Obteniendo ubicación…</string>
 
     <!-- Dificultades array -->
     <string-array name="dificultades">
