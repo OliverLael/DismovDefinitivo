@@ -53,6 +53,14 @@
     <string name="msg_sin_rango">No hay lugares en este rango</string>
     <string name="msg_selecciona_nivel">Selecciona un nivel de dificultad</string>
 
+    <!-- Section headers -->
+    <string name="section_guardados">Guardados</string>
+    <string name="section_cerca_de_ti">Cerca de ti · OpenStreetMap</string>
+
+    <!-- OSM messages -->
+    <string name="osm_sin_resultados">No se encontraron lugares cercanos</string>
+    <string name="osm_error">Error al cargar lugares cercanos</string>
+
     <!-- Dificultades array -->
     <string-array name="dificultades">
         <item>Principiante</item>
