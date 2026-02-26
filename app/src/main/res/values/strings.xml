@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Mis Lugares</string>
+    <string name="title_activity_vista_lugar">Detalles del Lugar</string>
+    <string-array name="dificultades">
+        <item>Principiante</item>
+        <item>Intermedio</item>
+        <item>Avanzado</item>
+    </string-array>
+
+
+</resources>

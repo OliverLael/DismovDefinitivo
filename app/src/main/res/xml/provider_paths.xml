@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--
+     Define un camino para la carpeta de archivos internos de la app.
+     Las fotos tomadas con la cámara se guardarán aquí de forma segura.
+    -->
+    <files-path
+        name="internal_images"
+        path="images/" />
+</paths>

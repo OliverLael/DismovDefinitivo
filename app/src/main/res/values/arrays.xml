@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_orden_entries">
+        <item>Nombre</item>
+        <item>Valoración</item>
+        <item>Distancia</item>
+    </string-array>
+
+    <string-array name="pref_orden_values">
+        <item>1</item> <!-- Corresponde a Nombre -->
+        <item>2</item> <!-- Corresponde a Valoración -->
+        <item>3</item> <!-- Corresponde a Distancia -->
+    </string-array>
+
+    <!-- === INICIO DEL CAMBIO === -->
+    <string-array name="pref_tipo_guardado_entries">
+        <item>Local (SQLite)</item>
+        <item>Nube (Firebase)</item>
+    </string-array>
+    <string-array name="pref_tipo_guardado_values">
+        <item>sqlite</item>
+        <item>firebase</item>
+    </string-array>
+    <!-- === FIN DEL CAMBIO === -->
+
+</resources>

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".VistaLugarActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.MisLugares.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_vista_lugar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/Theme.MisLugares.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/textViewNombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceHeadline5"
+                tools:text="Nombre del Lugar" />
+
+            <FrameLayout
+                android:id="@+id/frameLayoutFoto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"> <!-- Inicialmente oculto si no hay foto -->
+
+                <ImageView
+                    android:id="@+id/imageViewFotoVista"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="Foto del lugar"
+                    android:background="#DDDDDD"/>
+
+                <ImageButton
+                    android:id="@+id/buttonEliminarFoto"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="top|end"
+                    android:layout_margin="8dp"
+                    android:src="@android:drawable/ic_menu_close_clear_cancel"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Eliminar foto"
+                    app:tint="?attr/colorError" /> <!-- O un color que destaque -->
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/textViewTipo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textAppearance="?attr/textAppearanceSubtitle1"
+                tools:text="Tipo de Lugar" />
+
+            <!-- === INICIO DE CAMBIOS PARA DIRECCIÓN === -->
+            <TextView
+                android:id="@+id/textDificultad"
+                android:layout_width="359dp"
+
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Dificultad:"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/layoutDireccion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:background="?android:attr/selectableItemBackground"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:focusable="true"
+                android:clickable="true">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@android:drawable/ic_menu_myplaces"
+                    android:contentDescription="Icono de mapa"
+                    app:tint="?attr/colorControlNormal" />
+
+                <TextView
+                    android:id="@+id/textViewDireccion"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textAppearance="?attr/textAppearanceBody1"
+                    tools:text="Dirección completa del lugar" />
+            </LinearLayout>
+            <!-- === FIN DE CAMBIOS PARA DIRECCIÓN === -->
+
+            <!-- === INICIO DE CAMBIOS PARA TELÉFONO === -->
+
+            <LinearLayout
+                android:id="@+id/layoutTelefono"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:background="?android:attr/selectableItemBackground"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:focusable="true"
+                android:clickable="true">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@android:drawable/ic_menu_call"
+                    android:contentDescription="Icono de teléfono"
+                    app:tint="?attr/colorControlNormal"/>
+
+                <TextView
+                    android:id="@+id/textViewTelefono"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textAppearance="?attr/textAppearanceBody1"
+                    tools:text="Teléfono: 123456789" />
+            </LinearLayout>
+            <!-- === FIN DE CAMBIOS PARA TELÉFONO === -->
+
+
+            <!-- === INICIO DE CAMBIOS PARA URL === -->
+            <LinearLayout
+                android:id="@+id/layoutUrl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:background="?android:attr/selectableItemBackground"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:focusable="true"
+                android:clickable="true">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@android:drawable/ic_menu_compass"
+                    android:contentDescription="Icono de web"
+                    app:tint="?attr/colorControlNormal"/>
+
+                <TextView
+                    android:id="@+id/textViewUrl"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:autoLink="web"
+                    android:textAppearance="?attr/textAppearanceBody1"
+                    tools:text="URL: http://www.ejemplo.com" />
+            </LinearLayout>
+            <!-- === FIN DE CAMBIOS PARA URL === -->
+
+            <TextView
+                android:id="@+id/textViewComentario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textAppearance="?attr/textAppearanceBody1"
+                tools:text="Comentario o descripción larga del lugar." />
+
+            <TextView
+                android:id="@+id/textViewFecha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textAppearance="?attr/textAppearanceCaption"
+                tools:text="Fecha: dd/mm/yyyy" />
+
+            <RatingBar
+                android:id="@+id/ratingBarValoracion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:stepSize="0.5"
+                tools:rating="3.5" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="Sonido">
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="musica_habilitada"
+            android:summary="Reproducir música de fondo en la pantalla principal"
+            android:title="Música de fondo"
+            app:iconSpaceReserved="false"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="Base de datos">
+
+        <!-- === INICIO DEL CAMBIO === -->
+        <ListPreference
+            android:defaultValue="sqlite"
+            android:entries="@array/pref_tipo_guardado_entries"
+            android:entryValues="@array/pref_tipo_guardado_values"
+            android:key="tipo_guardado"
+            android:title="Tipo de Almacenamiento"
+            android:summary="Elige dónde guardar los datos (requiere reiniciar)"
+            app:iconSpaceReserved="false"/>
+        <!-- === FIN DEL CAMBIO === -->
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/pref_orden_entries"
+            android:entryValues="@array/pref_orden_values"
+            android:key="orden"
+            android:title="Criterio de ordenación"
+            app:iconSpaceReserved="false" />
+
+        <EditTextPreference
+            android:defaultValue="12"
+            android:key="maximo"
+            android:summary="Limita el número de lugares mostrados en la lista principal"
+            android:title="Máximo de lugares a mostrar"
+            android:inputType="number"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

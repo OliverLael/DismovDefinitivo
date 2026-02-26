@@ -1,0 +1,28 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_mapa"
+        android:icon="@android:drawable/ic_menu_mapmode"
+        android:orderInCategory="90"
+        android:title="Ver mapa"
+        app:showAsAction="ifRoom" />
+
+    <!-- === INICIO DEL CAMBIO === -->
+    <item
+        android:id="@+id/action_preferencias"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:orderInCategory="95"
+        android:title="Preferencias"
+        app:showAsAction="never" /> <!-- 'never' para que aparezca en los 3 puntos -->
+    <!-- ==== FIN DEL CAMBIO ==== -->
+
+    <!-- Puedes eliminar este si 'preferencias' lo reemplaza -->
+    <!--
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="Settings Original"
+        app:showAsAction="never" />
+     -->
+</menu>
